@@ -6,7 +6,7 @@ use Homyaki::Gallery::Image;
 use Geo::Converter::dms2dd qw { dms2dd };
 use Homyaki::Logger;
 
-use constant GOOGLE_MAPS_PATH => '/var/www/images/google_map/';
+use constant GOOGLE_MAPS_PATH => $ENV{DOCUMENT_ROOT} . '/images/google_map/';
 
 sub get_map_by_image{
 	my %h = @_;

@@ -356,12 +356,12 @@ sub load_images{
 
 			my $google_link = '/engine/?interface=gallery&form=data&image=' . $new_name;#$image_data->{$new_name}->{GPSGoogleLink};
 			my $new_image = {
-				title => $resume->{"$new_name"} ? $resume->{"$new_name"} : $new_name
+				resume => $resume->{"$new_name"} ? $resume->{"$new_name"} : $new_name
 			};
 			my $new_flag;
-			if ($image_data->{$new_name}->{title} ne $new_image->{title}) {
-				$image_data->{$new_name}->{title} = $new_image->{title};
-				if ($new_image->{title} ne $new_name){
+			if ($image_data->{$new_name}->{resume} ne $new_image->{resume}) {
+				$image_data->{$new_name}->{resume} = $new_image->{resume};
+				if ($new_image->{resume} ne $new_name){
 					push(@new_result, $new_image);
 				} else {
 					$new_flag = 1;
@@ -734,6 +734,10 @@ sub start {
 	my $index  = 0;
 	my $old_percent;
 
+	my $gallery_path = &GALLERY_PATH;
+	$gallery_path =~ s/\/+$//;
+
+	`cp -r $gallery_path $gallery_path.back`;
 
 	# Files Processing
 
