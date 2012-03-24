@@ -1,1 +1,2 @@
-INSERT INTO `task_types` VALUES (7,'Homyaki::Task_Manager::Task::Gallery_Update','Akosarev Gallery update');
+INSERT INTO `task_types` (handler, name)
+	VALUES ('Homyaki::Task_Manager::Task::Gallery_Update','Akosarev Gallery update');
