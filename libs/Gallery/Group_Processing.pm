@@ -52,7 +52,7 @@ sub process {
 		params => $params,
 	);
 
-	foreach my $image_path (@{$images_list}) {
+	foreach my $image_path (sort {$a cmp $b} @{$images_list}) {
 		$params->{image_path} = $image_path;
 
 		$processor->process(
