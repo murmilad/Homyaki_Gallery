@@ -14,7 +14,7 @@ use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
 
-use Homyaki::Gallery::Sitemap;
+#use Homyaki::Gallery::Sitemap;
 use Homyaki::Gallery::Group_Processing;
 use Geo::Converter::dms2dd qw { dms2dd };
 
@@ -934,7 +934,7 @@ sub get_gps_google_link {
 sub put_sitemap {
     chdir '/var/www/';
 
-    Homyaki::Gallery::Sitemap->write_sitemap('sitemap.xml');
+#    Homyaki::Gallery::Sitemap->write_sitemap('sitemap.xml');
 }
 
 sub start {
