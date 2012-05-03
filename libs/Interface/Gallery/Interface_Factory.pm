@@ -6,12 +6,7 @@ use Exporter;
 
 use base 'Homyaki::Interface::Interface_Factory';
 
-use constant INTERFACE_MAP => {
-	default => 'Homyaki::Interface::Gallery::News',
-	base    => 'Homyaki::Interface::Gallery',
-	data    => 'Homyaki::Interface::Gallery::Data',
-	news    => 'Homyaki::Interface::Gallery::News',
-	auth    => 'Homyaki::Interface::Gallery::Auth',
-};
+use constant DEFAULT_FORM  => 'default';
+use constant NTERFACE_NAME => 'gallery';
 
 1;
