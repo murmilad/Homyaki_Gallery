@@ -1,4 +1,4 @@
-use homyaki_web;
+USE `homyaki_web`;
 INSERT INTO `form_handlers` (handler, name, description, interface_name)
 	VALUES
 		('Homyaki::Interface::Gallery::News' , 'news', 'News about blog changes form handler', 'gallery')
