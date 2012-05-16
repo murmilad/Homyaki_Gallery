@@ -16,7 +16,7 @@ sub create_builder {
         my $this = shift;
 
 	my %h      = @_;
-	my $builder_name = $h{name} : 'default';
+	my $builder_name = $h{name} || 'default';
 	my $params       = $h{params};
 	my $interface_builder = $this->INTERFACE_BUILDER_MAP->{$builder_name};
 
