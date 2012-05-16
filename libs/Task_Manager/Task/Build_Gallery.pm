@@ -433,8 +433,9 @@ sub load_images{
                                         }
 				}
 
+				my $result_image;
 				foreach my $image_processor (@{$image_processors}) {
-					my $result_image = $image_processor->process(
+					$result_image = $image_processor->process(
 						image        => $img,
 						dest_path    => {
 							thumb => $new,
