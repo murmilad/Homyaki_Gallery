@@ -14,7 +14,7 @@ use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
 
-use Homyaki::Gallery::Sitemap;
+#use Homyaki::Gallery::Sitemap;
 use Homyaki::Gallery::Group_Processing;
 use Geo::Converter::dms2dd qw { dms2dd };
 
@@ -27,13 +27,15 @@ use Homyaki::Task_Manager::Task::Build_Gallery::Interface_Builder::Factory;
 use Homyaki::Task_Manager::Task::Build_Gallery::Image_Processor::Factory;
 
 
-use constant SITE_URL      => 'media.homyaki.info';
+#use constant SITE_URL      => 'media.homyaki.info';
+use constant SITE_URL      => 'media.homyaki.info/test';
 use constant SITE_LOGIN    => 'alex';
 use constant SITE_PASSWORD => '458973';
 
 use constant RESUME_PATH     => '/media/MEIZU M8/Gallery/';
 
-use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery/';
+#use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery/';
+use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery_test/';
 use constant RESUME_PIC_PATH => &GALLERY_PATH . '/resume/';
 use constant THUMB_PATH      => &GALLERY_PATH . 'images/thumbs/';
 use constant PIC_PATH        => &GALLERY_PATH . 'images/big/';
@@ -47,10 +49,13 @@ use constant VIA_SYN_CE      => 0;
 use constant VIA_RSYNC       => 1;
 
 use constant LOCAL_APACHE         => 1;
-use constant HTTP_LOG_PATH        => '/var/log/apache2/';
-use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2/backup/';
+#use constant HTTP_LOG_PATH        => '/var/log/apache2/';
+use constant HTTP_LOG_PATH        => '/var/log/apache2_test/';
+#use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2/backup/';
+use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2_test/backup/';
 
-use constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo/';
+use constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo_test/';
+#se constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo/';
 use constant RESUME_FILENAME  => 'resume.txt';
 use constant BASE_RESUME_PATH => &BASE_IMAGE_PATH . &RESUME_FILENAME;
 
@@ -722,7 +727,7 @@ sub get_gps_google_link {
 sub put_sitemap {
     chdir '/var/www/';
 
-    Homyaki::Gallery::Sitemap->write_sitemap('sitemap.xml');
+#    Homyaki::Gallery::Sitemap->write_sitemap('sitemap.xml');
 }
 
 sub start {
