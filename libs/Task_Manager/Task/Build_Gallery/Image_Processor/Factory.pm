@@ -25,7 +25,7 @@ sub create_processor {
 	$this->require_handler($image_processor);
 
 	return $image_processor->new(
-		params = > $params
+		params => $params
 	);
 }
 
