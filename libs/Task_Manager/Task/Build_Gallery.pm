@@ -851,13 +851,13 @@ sub start {
 
 	$ftp->quit;
 
-	copy_images_to_resume();
+#	copy_images_to_resume();
 
-	move_apache_logs() if &LOCAL_APACHE;
+#	move_apache_logs() if &LOCAL_APACHE;
 
 #	put_sitemap();
 
-	start_email_sending();
+#	start_email_sending();
 
 
 #	if (scalar(@{$track_list_result->{track_list}}) > $track_list_count){
