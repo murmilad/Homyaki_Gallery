@@ -50,9 +50,9 @@ use constant VIA_RSYNC       => 1;
 
 use constant LOCAL_APACHE         => 1;
 #use constant HTTP_LOG_PATH        => '/var/log/apache2/';
-use constant HTTP_LOG_PATH        => '/var/log/apache2_test/';
+#use constant HTTP_LOG_PATH        => '/var/log/apache2_test/';
 #use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2/backup/';
-use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2_test/backup/';
+#use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2_test/backup/';
 
 use constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo_test/';
 #se constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo/';
