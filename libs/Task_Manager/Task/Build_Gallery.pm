@@ -504,7 +504,7 @@ sub get_gallery_hash {
 	my $image_data  = $h{image_data};
 
         my $all_new_images = [];
-        my $all_albums     = {};
+        my $all_albums     = [];
 
         opendir( DIR, &BASE_IMAGE_PATH ) || die "Can't open dir " . &BASE_IMAGE_PATH . " $!";
         my @directories = sort {$b cmp $a} map {&BASE_IMAGE_PATH . $_} grep { /\w/ && -d (&BASE_IMAGE_PATH . $_)} readdir(DIR);
