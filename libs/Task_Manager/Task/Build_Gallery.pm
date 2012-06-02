@@ -10,7 +10,7 @@ use List::Util qw[min max];
 use Imager;
 
 use Homyaki::Imager;
-use Homyaki::Gallery::Image;
+#use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
 
@@ -319,7 +319,7 @@ sub load_images{
         my $watermark_image = get_watermark_image();
 	my $image_processors = [];
 
-	foreach my $image_processor_name (@{&IMAGE_PROCESSOR_LIST}) {
+	foreach my $image_processor_name (@{&IMAGE_PROCESSOR_ORDER}) {
 		my $image_processor = Homyaki::Task_Manager::Task::Build_Gallery::Image_Processor::Factory->create_processor(
 			name   => $image_processor_name,
 			params => {
@@ -339,8 +339,8 @@ sub load_images{
 		}
 
 		my $old = "$directory/$image";
-		my $new = &THUMB_PATH . "$new_name";
-		my $pic = &PIC_PATH . "$new_name";
+		my $thumb_path = &THUMB_PATH . "$new_name";
+		my $big_path   = &PIC_PATH . "$new_name";
 
 		my $img;
 
@@ -377,16 +377,16 @@ sub load_images{
 			$new_image->{'link'}      = $google_link if $google_link;
 			$new_image->{image}       = $new_name;
 
-			my $image = Homyaki::Gallery::Image->find_or_create({
-				name => $new_name
-			},{fill_imade_data => 0});
+#			my $image = Homyaki::Gallery::Image->find_or_create({
+#				name => $new_name
+#			},{fill_imade_data => 0});
 
-			$image->set('resume', $resume->{"$new_name"});
-			$image->set('path', $old);
+#			$image->set('resume', $resume->{"$new_name"});
+#			$image->set('path', $old);
 
-			$image->update();
+#			$image->update();
 
-			if ($image_data->{$new_name}->{date} && !(grep {$_ eq $image} @up_images)){
+			if ($image_data->{$new_name}->{date}){# && !(grep {$_ eq $image} @up_images)){
 				$new_image->{date} = $image_data->{$new_name}->{date};
 			} else {
 				$img = Imager->new();
@@ -443,8 +443,8 @@ sub load_images{
 					$result_image = $image_processor->process(
 						image        => $img,
 						dest_path    => {
-							thumb => $new,
-							pic   => $pic,
+							thumb => $thumb_path,
+							pic   => $big_path,
 						},
 						source_path  => $old,
 						result_image => $result_image,
