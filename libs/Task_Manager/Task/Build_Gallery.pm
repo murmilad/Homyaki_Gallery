@@ -9,7 +9,7 @@ use Net::FTP;
 use List::Util qw[min max];
 use Imager;
 
-use Homyaki::Imager;
+use Homyaki::Imager qw(change_size);
 #use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
