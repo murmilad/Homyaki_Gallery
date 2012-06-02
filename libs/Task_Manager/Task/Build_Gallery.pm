@@ -316,7 +316,6 @@ sub load_images{
 
 	my @result;
 	my @new_result;
-        my $watermark_image = get_watermark_image();
 	my $image_processors = [];
 
 	foreach my $image_processor_name (@{&IMAGE_PROCESSOR_ORDER}) {
@@ -761,8 +760,6 @@ sub start {
 			images_path   => &BASE_IMAGE_PATH,
 		},
 	);
-
-	my $watermark_image = get_watermark_image();
 
 	unless (&UPDATE){
 		my $picdir   = &PIC_PATH;
