@@ -27,8 +27,7 @@ use Homyaki::Task_Manager::Task::Build_Gallery::Interface_Builder::Factory;
 use Homyaki::Task_Manager::Task::Build_Gallery::Image_Processor::Factory;
 
 
-#use constant SITE_URL      => 'media.homyaki.info';
-use constant SITE_URL      => 'media.homyaki.info/test';
+use constant SITE_URL      => 'media.homyaki.info';
 use constant SITE_LOGIN    => 'alex';
 use constant SITE_PASSWORD => '458973';
 
