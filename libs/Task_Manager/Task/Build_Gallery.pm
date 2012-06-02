@@ -9,7 +9,7 @@ use Net::FTP;
 use List::Util qw[min max];
 use Imager;
 
-use Homyaki::Imager qw(change_size);
+use Homyaki::Imager qw(change_size get_tag_data);
 #use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
@@ -754,12 +754,12 @@ sub start {
 #		},
 #	);
 
-	Homyaki::Gallery::Group_Processing->process(
-		handler => 'Homyaki::Processor::Gallery_Unic_Name',
-		params  => {
-			images_path   => &BASE_IMAGE_PATH,
-		},
-	);
+#	Homyaki::Gallery::Group_Processing->process(
+#		handler => 'Homyaki::Processor::Gallery_Unic_Name',
+#		params  => {
+#			images_path   => &BASE_IMAGE_PATH,
+#		},
+#	);
 
 	unless (&UPDATE){
 		my $picdir   = &PIC_PATH;
