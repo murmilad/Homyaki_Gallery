@@ -65,7 +65,8 @@ use constant SIGNED_AS_NEW => 1;
 
 
 use constant INTERFACE_BUILDER_LIST => [
-	'df_gallery'
+	'df_gallery',
+	'html_albums'
 ];
 
 use constant IMAGE_PROCESSOR_ORDER => [
@@ -810,6 +811,7 @@ sub start {
 
 		$interface_builder->make(
 			params     => {
+				update       => 1,
 				xml_path     => &XML_PATH,
 				web_path     => &SITE_URL,
 				web_login    => &SITE_LOGIN,
