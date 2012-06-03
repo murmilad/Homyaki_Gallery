@@ -33,8 +33,7 @@ use constant SITE_PASSWORD => '458973';
 
 use constant RESUME_PATH     => '/media/MEIZU M8/Gallery/';
 
-#use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery/';
-use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery_test/';
+use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery/';
 use constant RESUME_PIC_PATH => &GALLERY_PATH . '/resume/';
 use constant THUMB_PATH      => &GALLERY_PATH . 'images/thumbs/';
 use constant PIC_PATH        => &GALLERY_PATH . 'images/big/';
@@ -53,8 +52,7 @@ use constant LOCAL_APACHE         => 1;
 #use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2/backup/';
 #use constant HTTP_LOG_BACKUP_PATH => '/var/log/apache2_test/backup/';
 
-use constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo_test/';
-#se constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo/';
+use constant BASE_IMAGE_PATH  => '/home/alex/Share/Photo/';
 use constant RESUME_FILENAME  => 'resume.txt';
 use constant BASE_RESUME_PATH => &BASE_IMAGE_PATH . &RESUME_FILENAME;
 
@@ -375,16 +373,16 @@ sub load_images{
 			$new_image->{'link'}      = $google_link if $google_link;
 			$new_image->{image}       = $new_name;
 
-#			my $image = Homyaki::Gallery::Image->find_or_create({
-#				name => $new_name
-#			},{fill_imade_data => 0});
+			my $image = Homyaki::Gallery::Image->find_or_create({
+				name => $new_name
+			},{fill_imade_data => 0});
 
-#			$image->set('resume', $resume->{"$new_name"});
-#			$image->set('path', $old);
+			$image->set('resume', $resume->{"$new_name"});
+			$image->set('path', $old);
 
-#			$image->update();
+			$image->update();
 
-			if ($image_data->{$new_name}->{date}){# && !(grep {$_ eq $image} @up_images)){
+			if ($image_data->{$new_name}->{date} && !(grep {$_ eq $image} @up_images)){
 				$new_image->{date} = $image_data->{$new_name}->{date};
 			} else {
 				$img = Imager->new();
@@ -753,12 +751,12 @@ sub start {
 #		},
 #	);
 
-#	Homyaki::Gallery::Group_Processing->process(
-#		handler => 'Homyaki::Processor::Gallery_Unic_Name',
-#		params  => {
-#			images_path   => &BASE_IMAGE_PATH,
-#		},
-#	);
+	Homyaki::Gallery::Group_Processing->process(
+		handler => 'Homyaki::Processor::Gallery_Unic_Name',
+		params  => {
+			images_path   => &BASE_IMAGE_PATH,
+		},
+	);
 
 	unless (&UPDATE){
 		my $picdir   = &PIC_PATH;
@@ -847,13 +845,13 @@ sub start {
 
 	$ftp->quit;
 
-#	copy_images_to_resume();
+	copy_images_to_resume();
 
-#	move_apache_logs() if &LOCAL_APACHE;
+	move_apache_logs() if &LOCAL_APACHE;
 
 #	put_sitemap();
 
-#	start_email_sending();
+	start_email_sending();
 
 
 #	if (scalar(@{$track_list_result->{track_list}}) > $track_list_count){
