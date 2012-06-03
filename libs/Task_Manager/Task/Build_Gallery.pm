@@ -10,7 +10,7 @@ use List::Util qw[min max];
 use Imager;
 
 use Homyaki::Imager qw(change_size get_tag_data);
-#use Homyaki::Gallery::Image;
+use Homyaki::Gallery::Image;
 use Homyaki::Task_Manager::DB::Task;
 use Homyaki::Task_Manager::DB::Constants;
 
