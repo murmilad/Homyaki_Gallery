@@ -812,6 +812,7 @@ sub start {
 		$interface_builder->make(
 			params     => {
 				update       => 1,
+				gallery_path => &GALLERY_PATH,
 				xml_path     => &XML_PATH,
 				web_path     => &SITE_URL,
 				web_login    => &SITE_LOGIN,
