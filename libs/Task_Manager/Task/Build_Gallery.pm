@@ -554,7 +554,7 @@ sub get_gallery_hash {
 
 			my $new_images = $result->{new_images};
 			if ($new_images) {
-				push (@{$all_new_images}, @{$new_images}) if &UPDATE;
+				push (@{$all_new_images}, (@{$new_images})) if &UPDATE;
 			}
 
 			my $images = $result->{images};
