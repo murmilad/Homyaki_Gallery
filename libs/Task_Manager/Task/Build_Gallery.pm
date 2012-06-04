@@ -810,6 +810,7 @@ sub start {
 			params     => {
 				update       => 1,
 				gallery_path => &GALLERY_PATH,
+				images_path  => &PIC_PATH,
 				xml_path     => &XML_PATH,
 				web_path     => &SITE_URL,
 				web_login    => &SITE_LOGIN,
