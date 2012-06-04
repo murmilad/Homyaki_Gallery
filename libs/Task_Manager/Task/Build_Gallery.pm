@@ -572,7 +572,7 @@ sub get_gallery_hash {
 
 		push (@{$all_albums}, $album);
 	}
-
+	Homyaki::Logger::print_log("Build_Gallery: New images " . Dumper($all_new_images));
 	return {
 		all_new_images => $all_new_images,
 		all_albums     => $all_albums,
@@ -783,21 +783,18 @@ sub start {
 	};
 	close RESUME;
 
-	open (OBJ, '<' . &OBJ_PATH);
-	my $str_obj;
-	while (my $str = <OBJ>) {
-		$str_obj .= $str;
-	};
-	close OBJ;
-	my $image_data = thaw($str_obj);
-
-        open (OBJ, '<' . &OBJ_PATH);
-        my $str_obj;
-        while (my $str = <OBJ>) {
-                $str_obj .= $str;
-        };
-        close OBJ;
-        my $image_data = thaw($str_obj);
+	my $image_data = {};
+	if (open (OBJ, '<' . &OBJ_PATH)) {
+		my $str_obj;
+		while (my $str = <OBJ>) {
+			$str_obj .= $str;
+		};
+		close OBJ;
+		$image_data = thaw($str_obj);
+		Homyaki::Logger::print_log("Build_Gallery: Obj bump " . Dumper($image_data));
+	} else {
+		Homyaki::Logger::print_log("Build_Gallery: Error: (Cannot open " . &OBJ_PATH . ") $!");
+	}
 
 	my $gallery_hash = get_gallery_hash(
 		task       => $task,
