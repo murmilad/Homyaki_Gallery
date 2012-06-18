@@ -7,7 +7,7 @@ use Homyaki::HTML;
 use Homyaki::HTML::Constants;
 
 use Homyaki::Interface;
-use base 'Homyaki::Interface';
+use base 'Homyaki::Interface::Interface_Helper';
 
 use constant INTERFACE  => 'gallery';
 
