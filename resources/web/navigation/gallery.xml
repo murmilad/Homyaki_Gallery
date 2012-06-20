@@ -1,0 +1,10 @@
+<menue>
+	<menue name="All blog changes" interface="gallery" form="news">
+		<permission>reader</permission>
+		<permission>guest</permission>
+	</menue>
+	<menue name="Photo Gallery" uri="/">
+		<permission>reader</permission>
+		<permission>guest</permission>
+	</menue>
+</menue>

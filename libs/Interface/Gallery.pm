@@ -15,6 +15,7 @@ sub get_form {
 	my $self = shift;
 	my %h = @_;
 
+	my $user     = $h{user};
 	my $params   = $h{params};
 	my $errors   = $h{errors};
 	my $body_tag = $h{body_tag};
@@ -38,11 +39,13 @@ sub get_tag {
 	my $self = shift;
 	my %h = @_;
 
+	my $user   = $h{user};
 	my $params = $h{params};
 	my $errors = $h{errors};
 	my $header = $h{header} || 'Alexey Kosarev - Photo Gallery. Алексей Косарев - Фотоальбом.';
 
 	my $root = $self->SUPER::get_tag(
+		user   => $user,
 		params => $params,
 		errors => $errors,
 		header => $header,

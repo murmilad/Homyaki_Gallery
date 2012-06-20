@@ -33,6 +33,7 @@ sub get_form {
 	my $body_tag = $h{body_tag};
 
 	my $root = $self->SUPER::get_form(
+		user     => $user,
 		params   => $params,
 		errors   => $errors,
 		form_id  => 'blog_form',
