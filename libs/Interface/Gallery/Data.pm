@@ -32,6 +32,7 @@ sub get_tag {
 	my $user   = $h{user};
 
 	my $root = $self->SUPER::get_tag(
+		user   => $user,
 		params => $params,
 		errors => $errors,
 	);
