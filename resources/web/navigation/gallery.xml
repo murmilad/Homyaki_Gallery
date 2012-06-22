@@ -1,10 +1,18 @@
 <menue>
-	<menue name="All blog changes" interface="gallery" form="news">
-		<permission>reader</permission>
-		<permission>guest</permission>
+	<menue name="Photo Gallery">
+		<menue name="All blog changes" interface="gallery" form="news">
+			<permission>reader</permission>
+			<permission>guest</permission>
+		</menue>
+		<menue name="Build gallery" interface="task" form="build_gallery">
+			<permission>writer</permission>
+		</menue>
 	</menue>
-	<menue name="Photo Gallery" uri="/">
-		<permission>reader</permission>
-		<permission>guest</permission>
+	<menue name="Exterlal links">
+		<menue name="Photo Gallery" uri="/">
+			<permission>reader</permission>
+			<permission>guest</permission>
+		</menue>
 	</menue>
+
 </menue>
