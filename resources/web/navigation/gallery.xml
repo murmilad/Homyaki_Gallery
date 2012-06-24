@@ -8,7 +8,7 @@
 			<permission>writer</permission>
 		</menue>
 	</menue>
-	<menue name="External links">
+	<menue name="External Links">
 		<menue name="Photo Gallery" uri="/">
 			<permission>reader</permission>
 			<permission>guest</permission>
