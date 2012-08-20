@@ -234,37 +234,6 @@ sub upload_files{
 	}
 }
 
-sub set_resume_thumb {
-	my $file_path = shift;
-	my $picture   = shift;
-
-	my $image_path   = &BASE_IMAGE_PATH;
-	my $gallery_path = &GALLERY_PATH;
-
-	$file_path =~ s/$gallery_path//;
-
-	if ($file_path =~ /([\w \\(\)'&-]+)\/([\w-]+)\/(acoll_\d{7}_[\w \\\(\)'&]+\.jpg)$/i){
-		unless (-d "$gallery_path/resume"){
-			`mkdir $gallery_path/resume`
-		}
-
-		unless (-d "$gallery_path/resume/$1"){
-			`mkdir $gallery_path/resume/$1`
-		}
-
-		unless (-d "$gallery_path/resume/$1/$2"){
-			`mkdir $gallery_path/resume/$1/$2`
-		}
-
-
-		unless ($picture->write(file=>"$gallery_path/resume/$1/$2/$3")) {
-			Homyaki::Logger::print_log("Build_Gallery: set_resume_thumb Error: $gallery_path/resume/$1/$2/$3 - " . $picture->errstr());
-			print STDERR "$gallery_path/resume/$1/$2/$3 - ",$picture->errstr(),"\n";
-			next;
-		}
-	}
-}
-
 sub get_new_name {
 	my $old_name  = shift;
 	my $directory = shift;
