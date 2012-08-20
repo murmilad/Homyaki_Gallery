@@ -71,6 +71,7 @@ use constant INTERFACE_BUILDER_LIST => [
 
 use constant IMAGE_PROCESSOR_ORDER => [
 	'resize_for_html',
+	'resize_for_resume',
 	'add_watermark'
 ];
 
@@ -320,7 +321,8 @@ sub load_images{
 		my $image_processor = Homyaki::Task_Manager::Task::Build_Gallery::Image_Processor::Factory->create_processor(
 			name   => $image_processor_name,
 			params => {
-				gallery_path => &BASE_IMAGE_PATH
+				gallery_path => &BASE_IMAGE_PATH,
+				result_path  => &GALLERY_PATH
 			}
 		);
 		push (@{$image_processors}, $image_processor);
@@ -447,19 +449,6 @@ sub load_images{
 						result_image => $result_image,
 					);
 				}
-
-
-#				my $percent = $index * 100 / $count;
-#				print sprintf('%d', $percent) . "% finished\n";
-
-				if (&RESUME_THUMBS) {
-					my $resum_pic = change_size($img, 320);
-		
-					set_resume_thumb("$directory/$image", $resum_pic);
-				}
-
-#				push(@new_result, $new_image) if $point_new_pic;
-
 			}
 
 			$progress->{'index'}++;
