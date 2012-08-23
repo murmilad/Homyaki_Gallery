@@ -65,19 +65,19 @@ sub get_tag {
                 contact_name  => 'Alexey Kosarev (Murmilad)',
 	);
 
-	my $table = $self->get_form(
-		params   => $params,
-		errors   => $errors,
-		form_id  => 'main_form',
-		body_tag => $form,
-	);
+#	my $table = $self->get_form(
+#		params   => $params,
+#		errors   => $errors,
+#		form_id  => 'main_form',
+#		body_tag => $form,
+#	);
 
-	my $form_tag      = $table->{root};
-	my $form_body_tag = $table->{body};
+#	my $form_tag      = $table->{root};
+#	my $form_body_tag = $table->{body};
 
 	return {
 		root => $root_tag,
-		body => $form_body_tag
+		body => $form
 	};
 }
 
