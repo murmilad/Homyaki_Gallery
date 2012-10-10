@@ -54,27 +54,6 @@ sub get_form {
 		value  => $params->{blog_image_id},
 	);
 
-	my $index = 0;
-	foreach my $blog_comment_param (sort {
-		if ($a =~ /blog_comment_(\d+)/){
-			my $a_id = $1;
-			if ($b =~ /blog_comment_(\d+)/) {
-				my $b_id = $1;
-				return $b_id <=> $a_id;
-			}
-		}
-	} grep {$_ =~ /^blog_comment_/} keys %{$params}){
-		$index++;
-		$form_param = Homyaki::HTML::Gallery::Blog->add_blog_comment(
-			params      => $params,
-			errors      => $errors,
-			name        => $blog_comment_param,
-			header      => 'Comment',
-			body_tag    => $body_tag,
-			permissions => $permissions,
-			'index'     => $index,
-		);
-	}
 
 
         $form_param = $body_tag->add_form_element(
@@ -126,6 +105,29 @@ sub get_form {
 		name     => 'blog_submit_button',
                 location => &LOCATION_RIGHT,
 	);
+
+
+	my $index = 0;
+	foreach my $blog_comment_param (sort {
+		if ($a =~ /blog_comment_(\d+)/){
+			my $a_id = $1;
+			if ($b =~ /blog_comment_(\d+)/) {
+				my $b_id = $1;
+				return $b_id <=> $a_id;
+			}
+		}
+	} grep {$_ =~ /^blog_comment_/} keys %{$params}){
+		$index++;
+		$form_param = Homyaki::HTML::Gallery::Blog->add_blog_comment(
+			params      => $params,
+			errors      => $errors,
+			name        => $blog_comment_param,
+			header      => 'Comment',
+			body_tag    => $body_tag,
+			permissions => $permissions,
+			'index'     => $index,
+		);
+	}
 
 
 
