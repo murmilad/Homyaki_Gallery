@@ -286,12 +286,14 @@ sub load_images{
 	my @new_result;
 	my $image_processors = [];
 
+	my $exifTool  = new Image::ExifTool;
 	foreach my $image_processor_name (@{&IMAGE_PROCESSOR_ORDER}) {
 		my $image_processor = Homyaki::Task_Manager::Task::Build_Gallery::Image_Processor::Factory->create_processor(
 			name   => $image_processor_name,
 			params => {
 				gallery_path => &BASE_IMAGE_PATH,
-				result_path  => &GALLERY_PATH
+				result_path  => &GALLERY_PATH,
+				exif_tool    => $exifTool,
 			}
 		);
 		push (@{$image_processors}, $image_processor);
@@ -314,7 +316,6 @@ sub load_images{
 
 		if ($resume->{"$new_name"}){# || $image_data->{$new_name}){
 
-			my $exifTool  = new Image::ExifTool;
 			my $ImageInfo = $exifTool->ImageInfo($old);
 			$exifTool->ExtractInfo($old, $ImageInfo);
 			$image_data->{$new_name}->{GPSLatitude}  = $ImageInfo->{GPSLatitude};
