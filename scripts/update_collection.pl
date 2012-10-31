@@ -454,8 +454,15 @@ sub set_exif_data{
 		$image_path_web = "/var/www/akosarev.info/htdocs/images/big/$image_path_web";
 #		print "$image_path_web\n";
 		if (-f $image_path && -f $image_path_web){
-			$exifTool->WriteInfo($image_path, $image_path_web);
-			print "write = $image_path, $image_path_web\n";
+
+			my $ImageInfo = $exifTool->ImageInfo($image_path);
+			if ($ImageInfo->{GPSLatitude}) {
+				foreach my $gps_key (keys %{&EXIF_GPS_DATA_MAP}) {
+					$exifTool->SetNewValue($gps_key, $ImageInfo->{$gps_key}, &EXIF_GPS_DATA_MAP->{$gps_key});
+				}
+				$exifTool->WriteInfo($image_path_web);
+				print "write = $image_path, $image_path_web\n";
+			}
 		}
 	}
 #	print Dumper($images_list);
