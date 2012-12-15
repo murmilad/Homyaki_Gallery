@@ -93,12 +93,17 @@ sub get_tag {
 		value  => $params->{image_id},
 	);
 
+	my $alt_comment = $params->{comment};
+	$alt_comment =~ s/"/\\"/g;
+
 	$form_param = $images_form->add_form_element(
 		name   => 'photo_image',
 		type   => &INPUT_TYPE_IMAGE,
 		value  => &IMAGE_PATH . $params->{image},
 		'link' => '/',
-		&PARAM_HEIGHT => 512
+		&PARAM_HEIGHT => 512,
+		&PARAM_ALT    => $alt_comment,
+		&PARAM_TITLE  => $alt_comment,
 	);
 
 	if (Homyaki::Gallery::Google_Map_Image::get_map_by_image(image_name => $params->{image})){
