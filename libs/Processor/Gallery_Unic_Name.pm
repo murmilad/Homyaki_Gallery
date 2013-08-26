@@ -69,7 +69,7 @@ sub process {
 
 		my $nef_old_path = $file_path;
 		$nef_old_path =~ s/\.jpg$/\.NEF/i;
-		if (-f $nef_path) {
+		if (-f $nef_old_path) {
 			my $nef_new_path = $new_path;
 			$nef_new_path =~ s/\.jpg$/.NEF/i;
 			Homyaki::Logger::print_log("Gallery_Unic_Name: Change name from $nef_old_path to $nef_new_path");
