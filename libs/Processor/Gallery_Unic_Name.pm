@@ -68,7 +68,7 @@ sub process {
 		$new_path  = clean_path($new_path);
 
 		my $nef_old_path = $file_path;
-		$nef_old_path =~ s/\.jpg$/\.NEF/i;
+		$nef_old_path =~ s/\.jpg$/.NEF/i;
 		if (-f $nef_old_path) {
 			my $nef_new_path = $new_path;
 			$nef_new_path =~ s/\.jpg$/.NEF/i;
