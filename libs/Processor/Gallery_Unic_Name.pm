@@ -47,14 +47,13 @@ sub process {
 
 	if ($file_path =~ /^(.*)acoll_\d{7}_([\w \\\(\)\'&]+)\.jpg$/i){
 		my $nef_path = $1 . $2 . '.NEF';
-
 		if (-f $nef_path) {
 			my $nef_new_path = $file_path;
 			$nef_new_path =~ s/\.jpg/.NEF/i;
 			$nef_path      = clean_path($nef_path);
 			$nef_new_path  = clean_path($nef_new_path);
 			Homyaki::Logger::print_log("Gallery_Unic_Name: Change name from $nef_path to $nef_new_path");
-			`mv $nef_path $nef_new_path`;
+			`sudo mv $nef_path $nef_new_path`;
 		} 
 
 	} elsif ($file_path =~ /^(.*)\.jpg$/i) {
@@ -67,16 +66,16 @@ sub process {
 		$file_path = clean_path($file_path);
 		$new_path  = clean_path($new_path);
 
-		my $nef_old_path = $file_path;
+		my $nef_old_path = $nef_path;
 		$nef_old_path =~ s/\.jpg$/.NEF/i;
 		if (-f $nef_old_path) {
 			my $nef_new_path = $new_path;
 			$nef_new_path =~ s/\.jpg$/.NEF/i;
 			Homyaki::Logger::print_log("Gallery_Unic_Name: Change name from $nef_old_path to $nef_new_path");
-			`mv $nef_old_path $nef_new_path`;
+			`sudo mv $nef_old_path $nef_new_path`;
 		}
 		Homyaki::Logger::print_log("Gallery_Unic_Name: Change name from $file_path to $new_path");
-		`mv $file_path $new_path`;
+		`sudo mv $file_path $new_path`;
 	}
 
 }
