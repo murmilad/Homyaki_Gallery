@@ -18,12 +18,20 @@ use Homyaki::Interface::Task_Manager;
 use base 'Homyaki::Interface::Task_Manager';
 
 use constant TASK_HANDLER => 'Homyaki::Task_Manager::Task::Build_Gallery';
-use constant RESUME_PATH  => '/media/MEIZU M8';
+use constant RESUME_PATH  => '/Gallery/';
 use constant PARAMS_MAP  => {
 	name         => {name => 'Name'             , required => 1, type  => &INPUT_TYPE_TEXT},
 };
 
-sub get_tag {
+sub get_resume_usb_path {
+	opendir(DIR , '/media/' );
+	my ($path) = grep { (-d '/media/' . $_ .  &RESUME_PATH) } readdir(DIR);
+	closedir(DIR);
+
+	return '/media/' . $path;
+}
+
+sub get_form {
 	my $self = shift;
 	my %h = @_;
 
@@ -31,25 +39,12 @@ sub get_tag {
 	my $errors = $h{errors};
 	my $user   = $h{user};
 
-	my $body_tag = $self->SUPER::get_tag(
-		params => $params,
-		errors => $errors,
-		user   => $user,
-		header => 'Homyaki Gallery Update',
-	);
+	my $body_tag = $self->SUPER::get_form(%h);
 
 	my $form = $body_tag->{body};
 
-	Homyaki::HTML->add_login_link(
-		user      => $user,
-		body      => $form,
-		interface => 'task',
-		auth      => 'auth',
-		params    => $params,
-	);
-
 	if (
-		(-d &RESUME_PATH)
+		(-d get_resume_usb_path())
 		&& ref($user->{permissions}) eq 'ARRAY' && grep {$_ eq 'writer'} @{$user->{permissions}}
 	) {
 		$form->add_form_element(
@@ -72,14 +67,8 @@ sub get_tag {
 		);
 	}
 
-        my $tasks_form = $body_tag->{body}->add_form(
-		interface => $params->{interface},
-                form_name => $params->{form},
-                form_id   => 'tasks_form',
-        );
-
 	return {
-		root => $body_tag->{root},
+		root => $self,
 		body => $form,
 	};
 }
@@ -111,7 +100,7 @@ sub set_params {
 	my $result = $params;
         if (
 		$params->{submit_button} 
-		&& (-d &RESUME_PATH)
+		&& (-d get_resume_usb_path())
 		&& ref($user->{permissions}) eq 'ARRAY' && grep {$_ eq 'writer'} @{$user->{permissions}}
 	){
 
