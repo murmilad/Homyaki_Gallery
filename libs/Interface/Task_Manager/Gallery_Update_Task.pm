@@ -24,7 +24,7 @@ use constant PARAMS_MAP  => {
 	name         => {name => 'Name'             , required => 1, type  => &INPUT_TYPE_TEXT},
 };
 
-sub get_tag {
+sub get_form {
 	my $self = shift;
 	my %h = @_;
 
@@ -32,22 +32,10 @@ sub get_tag {
 	my $errors = $h{errors};
 	my $user   = $h{user};
 
-	my $body_tag = $self->SUPER::get_tag(
-		params => $params,
-		errors => $errors,
-		user   => $user,
-		header => 'Homyaki Gallery Update',
-	);
+	my $body_tag = $self->SUPER::get_form(%h);
 
 	my $form = $body_tag->{body};
 
-	Homyaki::HTML->add_login_link(
-		user      => $user,
-		body      => $form,
-		interface => 'task',
-		auth      => 'auth',
-		params    => $params,
-	);
 
 	if (
 		(-d &RESUME_PATH)
@@ -73,14 +61,8 @@ sub get_tag {
 		);
 	}
 
-        my $tasks_form = $body_tag->{body}->add_form(
-		interface => $params->{interface},
-                form_name => $params->{form},
-                form_id   => 'tasks_form',
-        );
-
 	return {
-		root => $body_tag->{root},
+		root => $self,
 		body => $form,
 	};
 }
