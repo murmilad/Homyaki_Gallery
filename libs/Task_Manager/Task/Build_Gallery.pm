@@ -20,6 +20,7 @@ use Geo::Converter::dms2dd qw { dms2dd };
 
 use Homyaki::Sender;
 use Homyaki::Logger;
+use File::Copy;
 
 use Homyaki::Apache_Log;
 
@@ -31,7 +32,7 @@ use constant SITE_URL      => 'media.homyaki.info';
 use constant SITE_LOGIN    => 'alex';
 use constant SITE_PASSWORD => '458973';
 
-use constant RESUME_PATH     => '/media/MEIZU M8/Gallery/';
+use constant RESUME_PATH     => '/Gallery/';
 
 use constant GALLERY_PATH    => '/home/alex/tmp/gfgallery/';
 use constant RESUME_PIC_PATH => &GALLERY_PATH . '/resume/';
@@ -87,6 +88,14 @@ sub get_album_name{
 	return $name;
 }
 
+sub get_resume_usb_path {
+	opendir(DIR , '/media/' );
+	my ($path) = grep { (-d '/media/' . $_ .  &RESUME_PATH) } readdir(DIR);
+	closedir(DIR);
+
+	return '/media/' . $path . &RESUME_PATH;
+}
+
 sub copy_resume_to_base {
 
 	my $base_path = &BASE_IMAGE_PATH;
@@ -95,7 +104,7 @@ sub copy_resume_to_base {
 	my $resume_file = &RESUME_FILENAME;
 	$resume_file =~ s/ /\\ /g;
 
-	my $resume_path = &RESUME_PATH  . '/' . &RESUME_FILENAME;
+	my $resume_path = get_resume_usb_path() . '/' . &RESUME_FILENAME;
 	$resume_path =~ s/ /\\ /g;
 
 	my $error;
@@ -478,7 +487,7 @@ sub get_gallery_hash {
 		current_percent => 0,
 	};
 
-        copy_resume_to_base();
+#        copy_resume_to_base();
 
         open (RESUME, '<' . &BASE_RESUME_PATH);
         my $resume = {};
@@ -544,7 +553,7 @@ sub copy_images_to_resume {
 	my $resume_pic_path = &RESUME_PIC_PATH;
 	$resume_pic_path =~ s/ /\\ /g;
 
-	my $resume_path = &RESUME_PATH;
+	my $resume_path = get_resume_usb_path();
 	$resume_path =~ s/ /\\ /g;
 
 	if (&VIA_RSYNC) {
@@ -728,7 +737,8 @@ sub start {
 
 	my $exists_folders = {};
 
-	copy_resume_to_base();
+	copy(&RESUME_PIC_PATH . '/resume.txt', &BASE_IMAGE_PATH . '/resume.txt.back'); 
+	copy(&RESUME_PIC_PATH . '/resume.txt', &BASE_IMAGE_PATH); 
 
 	open (RESUME, '<' . &BASE_RESUME_PATH);
 	my $resume = {};
