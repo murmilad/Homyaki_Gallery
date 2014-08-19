@@ -41,8 +41,8 @@ use constant PIC_PATH        => &GALLERY_PATH . 'images/big/';
 use constant XML_PATH        => &GALLERY_PATH . 'gallery.xml';
 use constant OBJ_PATH        => &GALLERY_PATH . 'gallery.obj';
 
-use constant THUMB_FTP_PATH => '/images/thumbs/';
-use constant PIC_FTP_PATH   => '/images/big/';
+use constant THUMB_FTP_PATH => &GALLERY_PATH . '/images/thumbs/';
+use constant PIC_FTP_PATH   => &GALLERY_PATH . '/images/big/';
 
 use constant VIA_SYN_CE      => 0;
 use constant VIA_RSYNC       => 1;
