@@ -629,15 +629,17 @@ sub move_apache_logs {
 	foreach my $log_source (@logs) {
 		my $log_destantion = $log_source;
 		$log_destantion =~ s/^(access\.log)(\.\d+)?(\.gz)?/$1.n$max_n$2$3/i;
-
+		my $is_base_log = !$2 && !$3;
 		$log_source     = &HTTP_LOG_PATH . $log_source;
 		$log_destantion = &HTTP_LOG_BACKUP_PATH . $log_destantion;
 
 		Homyaki::Logger::print_log("Build_Gallery: sudo mv $log_source $log_destantion\n");
-		my $mv_error = `sudo mv $log_source $log_destantion`;
+		my $mv_error = $is_base_log ? `sudo cp $log_source $log_destantion 2>&1` : `sudo mv $log_source $log_destantion 2>&1`;
 		if ($mv_error) {
 			Homyaki::Logger::print_log("Build_Gallery: Log: (sudo mv $log_source $log_destantion) $mv_error");
 			$is_log_error = 1;
+		} elsif ($is_base_log) {
+			`echo > $log_source`;
 		}
 
 		my $chmod_error = `sudo chmod 755 $log_destantion`;
@@ -815,7 +817,7 @@ sub start {
 
 	$ftp->quit;
 
-	copy_images_to_resume();
+#	copy_images_to_resume();
 
 	move_apache_logs() if &LOCAL_APACHE;
 
