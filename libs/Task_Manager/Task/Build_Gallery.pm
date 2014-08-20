@@ -41,8 +41,9 @@ use constant PIC_PATH        => &GALLERY_PATH . 'images/big/';
 use constant XML_PATH        => &GALLERY_PATH . 'gallery.xml';
 use constant OBJ_PATH        => &GALLERY_PATH . 'gallery.obj';
 
-use constant THUMB_FTP_PATH => '/var/www/akosarev.info/htdocs/images/thumbs/';
-use constant PIC_FTP_PATH   => '/var/www/akosarev.info/htdocs/images/big/';
+use constant FTP_PATH => '/var/www/akosarev.info/htdocs/';
+use constant THUMB_FTP_PATH => '/images/thumbs/';
+use constant PIC_FTP_PATH   => '/images/big/';
 
 use constant VIA_SYN_CE      => 0;
 use constant VIA_RSYNC       => 1;
@@ -220,9 +221,9 @@ sub upload_files{
 		unless($error){
 			foreach my $file_name (@up_files) {
 
-				upload_file(&THUMB_PATH . "/${file_name}", &THUMB_FTP_PATH . "/${file_name}", $ftp);
+				upload_file(&THUMB_PATH . "/${file_name}", &FTP_PATH . &THUMB_FTP_PATH . "/${file_name}", $ftp);
 
-				upload_file(&PIC_PATH . "/${file_name}", &PIC_FTP_PATH . "/${file_name}", $ftp);
+				upload_file(&PIC_PATH . "/${file_name}", &FTP_PATH  . &PIC_FTP_PATH . "/${file_name}", $ftp);
 
 				$up_index++;
 			
@@ -629,17 +630,15 @@ sub move_apache_logs {
 	foreach my $log_source (@logs) {
 		my $log_destantion = $log_source;
 		$log_destantion =~ s/^(access\.log)(\.\d+)?(\.gz)?/$1.n$max_n$2$3/i;
-		my $is_base_log = !$2 && !$3;
+
 		$log_source     = &HTTP_LOG_PATH . $log_source;
 		$log_destantion = &HTTP_LOG_BACKUP_PATH . $log_destantion;
 
 		Homyaki::Logger::print_log("Build_Gallery: sudo mv $log_source $log_destantion\n");
-		my $mv_error = $is_base_log ? `sudo cp $log_source $log_destantion 2>&1` : `sudo mv $log_source $log_destantion 2>&1`;
+		my $mv_error = `sudo mv $log_source $log_destantion 2>&1`;
 		if ($mv_error) {
 			Homyaki::Logger::print_log("Build_Gallery: Log: (sudo mv $log_source $log_destantion) $mv_error");
 			$is_log_error = 1;
-		} elsif ($is_base_log) {
-			`echo > $log_source`;
 		}
 
 		my $chmod_error = `sudo chmod 755 $log_destantion`;
@@ -647,20 +646,20 @@ sub move_apache_logs {
 			if $chmod_error;
 	}
 
-	my $log_obj_source = &HTTP_LOG_PATH . 'hosts.obj';
-	my $rm_error = `sudo rm -f $log_obj_source`
-		unless $is_log_error;
-	Homyaki::Logger::print_log("Build_Gallery: Log: (sudo rm -f $log_obj_source) $rm_error")
-		if $rm_error;
+#	my $log_obj_source = &HTTP_LOG_PATH . 'hosts.obj';
+#	my $rm_error = `sudo rm -f $log_obj_source`
+#		unless $is_log_error;
+#	Homyaki::Logger::print_log("Build_Gallery: Log: (sudo rm -f $log_obj_source) $rm_error")
+#		if $rm_error;
 
 
-	my $log_html = Homyaki::Apache_Log::get_html(&HTTP_LOG_BACKUP_PATH);
+#	my $log_html = Homyaki::Apache_Log::get_html(&HTTP_LOG_BACKUP_PATH);
 	
-	if (open LOG, '>/var/www/stat_old.html') {
-		print LOG $log_html;
-	} else {
-		Homyaki::Logger::print_log("Build_Gallery: Error:  can't open /var/www/stat_old.html file $!");
-	}
+#	if (open LOG, '>/var/www/stat_old.html') {
+#		print LOG $log_html;
+#	} else {
+#		Homyaki::Logger::print_log("Build_Gallery: Error:  can't open /var/www/stat_old.html file $!");
+#	}
 	my $restart_result = `sudo service apache2 restart`;
 	Homyaki::Logger::print_log("Build_Gallery: Log: (sudo service apache2 restart) $restart_result");
 }
@@ -801,7 +800,7 @@ sub start {
 	$ftp->login(&SITE_LOGIN, &SITE_PASSWORD)
 		or Homyaki::Logger::print_log("Build_Gallery: Error: (Cannot login to " . &SITE_URL . ") " . $ftp->message);
 
-	upload_file(&BASE_RESUME_PATH, '/', $ftp);
+	upload_file(&BASE_RESUME_PATH, &FTP_PATH, $ftp);
 
 	if (open (OBJ, '>' . &OBJ_PATH)) {
 		print OBJ freeze($image_data);
@@ -810,7 +809,7 @@ sub start {
 		$ftp->binary()
 			or Homyaki::Logger::print_log("Build_Gallery: Error: (Cannot set binary mode)" . $ftp->message);
 
-		upload_file(&OBJ_PATH, '/', $ftp);
+		upload_file(&OBJ_PATH, &FTP_PATH, $ftp);
 	} else {
 		Homyaki::Logger::print_log('cant open ' . &OBJ_PATH  . " $!");
 	}

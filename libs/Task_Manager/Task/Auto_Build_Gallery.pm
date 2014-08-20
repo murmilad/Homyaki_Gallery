@@ -40,7 +40,7 @@ sub start {
 	my $result = {};
 
 	my $resume_diff = 0;
-
+print &BASE_RESUME_PATH;
 	open (RESUME, '<' . &BASE_RESUME_PATH);
 	my $old_resume = {};
 	while (my $str = <RESUME>) {
@@ -51,8 +51,8 @@ sub start {
 			$old_resume->{$image_name} .= $string;
 		}
 	};
+
 	close RESUME;
-	
 	open (RESUME, '<' . &NEW_RESUME_PATH);
 	my $new_resume = {};
 	while (my $str = <RESUME>) {
@@ -80,7 +80,7 @@ sub start {
 
 	print $resume_diff . ' ' . $images_diff; 
 
-	if ($images_diff >= &IMAGES_DIFF && $resume_diff >= &RESUME_DIFF ) {
+	if (0 && $images_diff >= &IMAGES_DIFF && $resume_diff >= &RESUME_DIFF ) {
 		my @task_types = Homyaki::Task_Manager::DB::Task_Type->search(
 			handler => 'Homyaki::Task_Manager::Task::Build_Gallery'
 		);
@@ -113,7 +113,7 @@ sub start {
 	return $result;
 }
 
-#start();
+start();
 1;
 
 __END__
